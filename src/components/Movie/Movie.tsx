@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import starredSlice from "../data/starredSlice";
-import watchLaterSlice from "../data/watchLaterSlice";
-import placeholder from "../assets/not-found-500X750.jpeg";
+import starredSlice from "@/data/starredSlice";
+import watchLaterSlice from "@/data/watchLaterSlice";
+import placeholder from "@/assets/not-found-500X750.jpeg";
 
 const Movie = ({ movie, viewTrailer, closeCard }) => {
   const state = useSelector((state) => state);

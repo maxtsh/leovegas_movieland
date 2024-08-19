@@ -1,10 +1,28 @@
-import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "@/data/moviesSlice";
+import "./header.scss";
 
-import "../styles/header.scss";
-
-const Header = ({ searchMovies }) => {
+const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { starredMovies } = useSelector((state) => state.starred);
+
+  const getSearchResults = (query) => {
+    if (query !== "") {
+      dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=` + query));
+      setSearchParams(createSearchParams({ search: query }));
+    } else {
+      dispatch(fetchMovies(ENDPOINT_DISCOVER));
+      setSearchParams();
+    }
+  };
+
+  const searchMovies = (query) => {
+    navigate("/");
+    getSearchResults(query);
+  };
 
   return (
     <header>
