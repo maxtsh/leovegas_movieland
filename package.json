@@ -1,6 +1,6 @@
 {
   "name": "movieland",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "set NODE_ENV=development&& vite",
@@ -8,12 +8,6 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -67,3 +61,4 @@
     "vitest": "^2.0.5"
   }
 }
+
