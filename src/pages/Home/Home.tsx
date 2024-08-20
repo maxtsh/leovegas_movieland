@@ -15,8 +15,6 @@ function Home() {
   const moviesData = data?.results || [];
   const searchQuery = searchParams.get("search") ?? undefined;
 
-  console.log(data, status, error);
-
   useEffect(() => {
     if (!mountRef.current) {
       mountRef.current = true;

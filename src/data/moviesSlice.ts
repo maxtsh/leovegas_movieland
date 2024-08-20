@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import requestHandler from "@/services/requestHandler";
+import { searchMovieAPIPath, discoverAPIPath } from "@/services/constants";
 import type { APIStatuses, MovieListResult } from "@/types";
 
 type MoviesState = {
@@ -12,8 +13,9 @@ export const getMoviesList = createAsyncThunk(
   "moviesList",
   (query?: string) => {
     const url = query
-      ? `search/movie?query=${query}`
-      : "discover/movie?sort_by=vote_count.desc";
+      ? searchMovieAPIPath(query)
+      : discoverAPIPath("vote_count.desc");
+
     return requestHandler<MovieListResult>(url);
   },
 );

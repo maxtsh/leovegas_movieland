@@ -1,42 +1,30 @@
-import {
-  createSearchParams,
-  Link,
-  NavLink,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
+import debounce from "@/utils/debounce";
 import { getMoviesList } from "@/data/moviesSlice";
 import useTypedDispatch from "@/hooks/useTypedDispatch";
 import useTypedSelector from "@/hooks/useTypedSelector";
 import "./header.scss";
 
-const Header = () => {
-  const navigate = useNavigate();
+function Header() {
   const dispatch = useTypedDispatch();
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data } = useTypedSelector((state) => state.starred);
 
-  const getSearchResults = (query?: string) => {
-    if (query !== "") {
-      dispatch(getMoviesList(query)).catch(() => {});
-      setSearchParams(createSearchParams({ search: query || "" }));
-    } else {
-      dispatch(getMoviesList()).catch(() => {});
-      setSearchParams();
-    }
-  };
+  const searchQuery = searchParams.get("search");
 
-  const searchMovies = (query: string) => {
-    navigate("/");
-    getSearchResults(query);
-  };
+  const searchMovies = debounce((query: string) => {
+    dispatch(getMoviesList(query)).catch(() => {});
+
+    searchParams.delete("search");
+    if (query) searchParams.append("search", query);
+    setSearchParams(searchParams);
+  }, 300);
 
   return (
     <header>
       <Link to="/" data-testid="home" onClick={() => searchMovies("")}>
         <i className="bi bi-film" />
       </Link>
-
       <nav>
         <NavLink
           to="/starred"
@@ -52,25 +40,23 @@ const Header = () => {
           )}
         </NavLink>
         <NavLink to="/watch-later" className="nav-fav">
-          watch later
+          Watch Later
         </NavLink>
       </nav>
-
       <div className="input-group rounded">
-        <Link to="/" onClick={(e) => searchMovies("")} className="search-link">
-          <input
-            type="search"
-            data-testid="search-movies"
-            onKeyUp={(e) => searchMovies(e.target.value)}
-            className="form-control rounded"
-            placeholder="Search movies..."
-            aria-label="Search movies"
-            aria-describedby="search-addon"
-          />
-        </Link>
+        <input
+          type="search"
+          data-testid="search-movies"
+          placeholder="Search movies..."
+          aria-label="Search movies"
+          aria-describedby="search-addon"
+          className="form-control rounded"
+          defaultValue={searchQuery || ""}
+          onChange={(e) => searchMovies(e.target.value)}
+        />
       </div>
     </header>
   );
-};
+}
 
 export default Header;
