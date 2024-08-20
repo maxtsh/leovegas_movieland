@@ -2,6 +2,7 @@
   "name": "movieland",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "set NODE_ENV=development&& vite",
     "build": "set NODE_ENV=production&& tsc&& vite build",
