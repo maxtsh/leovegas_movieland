@@ -1,25 +1,32 @@
-import { Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies } from "@/data/moviesSlice";
+import {
+  createSearchParams,
+  Link,
+  NavLink,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { getMoviesList } from "@/data/moviesSlice";
+import useTypedDispatch from "@/hooks/useTypedDispatch";
+import useTypedSelector from "@/hooks/useTypedSelector";
 import "./header.scss";
 
 const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { starredMovies } = useSelector((state) => state.starred);
+  const dispatch = useTypedDispatch();
+  const [_, setSearchParams] = useSearchParams();
+  const { data } = useTypedSelector((state) => state.starred);
 
-  const getSearchResults = (query) => {
+  const getSearchResults = (query?: string) => {
     if (query !== "") {
-      dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=` + query));
-      setSearchParams(createSearchParams({ search: query }));
+      dispatch(getMoviesList(query)).catch(() => {});
+      setSearchParams(createSearchParams({ search: query || "" }));
     } else {
-      dispatch(fetchMovies(ENDPOINT_DISCOVER));
+      dispatch(getMoviesList()).catch(() => {});
       setSearchParams();
     }
   };
 
-  const searchMovies = (query) => {
+  const searchMovies = (query: string) => {
     navigate("/");
     getSearchResults(query);
   };
@@ -35,10 +42,10 @@ const Header = () => {
           to="/starred"
           data-testid="nav-starred"
           className="nav-starred">
-          {starredMovies.length > 0 ? (
+          {data.length > 0 ? (
             <>
               <i className="bi bi-star-fill bi-star-fill-white" />
-              <sup className="star-number">{starredMovies.length}</sup>
+              <sup className="star-number">{data.length}</sup>
             </>
           ) : (
             <i className="bi bi-star" />

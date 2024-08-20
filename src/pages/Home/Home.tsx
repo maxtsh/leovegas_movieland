@@ -1,41 +1,41 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 import Movies from "@/components/Movies";
-import { fetchMovies } from "@/data/moviesSlice";
+import { getMoviesList, moviesActions } from "@/data/moviesSlice";
 import { useSearchParams } from "react-router-dom";
-import YouTubePlayer from "@/components/YoutubePlayer";
-import { getMovie } from "@/services";
-import { ENDPOINT_DISCOVER, ENDPOINT_SEARCH } from "@/constants";
+// import { getMovieById } from "@/services";
+import useTypedSelector from "@/hooks/useTypedSelector";
+import useTypedDispatch from "@/hooks/useTypedDispatch";
+// import YouTubePlayer from "@/components/YoutubePlayer";
 
 function Home() {
-  const dispatch = useDispatch();
+  const mountRef = useRef(false);
+  const dispatch = useTypedDispatch();
   const [searchParams] = useSearchParams();
-  const { movies } = useSelector((state) => state);
+  const { data, status, error } = useTypedSelector((state) => state.movies);
+  const moviesData = data?.results || [];
+  const searchQuery = searchParams.get("search") ?? undefined;
 
-  const getMovies = () => {
-    const searchQuery = searchParams.get("search");
-
-    if (searchQuery) {
-      dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=` + searchQuery));
-    } else {
-      dispatch(fetchMovies(ENDPOINT_DISCOVER));
-    }
-  };
+  console.log(data, status, error);
 
   useEffect(() => {
-    getMovies();
-  }, []);
+    if (!mountRef.current) {
+      mountRef.current = true;
+      dispatch(getMoviesList(searchQuery)).catch(() => {});
+    }
 
-  const closeCard = () => {};
+    return () => {
+      moviesActions.clearData();
+    };
+  }, [searchQuery, dispatch]);
 
-  const viewTrailer = (movie) => {
-    getMovie(movie.id);
-    if (!videoKey) setOpen(true);
-  };
+  //   const closeCard = () => {};
 
-  return (
-    <Movies movies={movies} viewTrailer={viewTrailer} closeCard={closeCard} />
-  );
+  //   const viewTrailer = async (movie: { id: string }) => {
+  //     await getMovieById(movie.id);
+  //     if (!videoKey) setOpen(true);
+  //   };
+
+  return <Movies movies={moviesData} />;
 }
 
 export default Home;

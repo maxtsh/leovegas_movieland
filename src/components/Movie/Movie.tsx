@@ -2,8 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import starredSlice from "@/data/starredSlice";
 import watchLaterSlice from "@/data/watchLaterSlice";
 import placeholder from "@/assets/not-found-500X750.jpeg";
+import type { Movie } from "@/types";
 
-const Movie = ({ movie, viewTrailer, closeCard }) => {
+type Props = {
+  movie: Movie;
+};
+
+const MovieComponent = ({ movie, viewTrailer, closeCard }: Props) => {
   const state = useSelector((state) => state);
   const { starred, watchLater } = state;
   const { starMovie, unstarMovie } = starredSlice.actions;
@@ -28,9 +33,7 @@ const Movie = ({ movie, viewTrailer, closeCard }) => {
           <div className="info_panel">
             <div className="overview">{movie.overview}</div>
             <div className="year">{movie.release_date?.substring(0, 4)}</div>
-            {!starred.starredMovies
-              .map((movie) => movie.id)
-              .includes(movie.id) ? (
+            {!starred.data.map((movie) => movie.id).includes(movie.id) ? (
               <span
                 className="btn-star"
                 data-testid="starred-link"
@@ -55,9 +58,7 @@ const Movie = ({ movie, viewTrailer, closeCard }) => {
                 <i className="bi bi-star-fill" data-testid="star-fill" />
               </span>
             )}
-            {!watchLater.watchLaterMovies
-              .map((movie) => movie.id)
-              .includes(movie.id) ? (
+            {!watchLater.data.map((movie) => movie.id).includes(movie.id) ? (
               <button
                 type="button"
                 data-testid="watch-later"
@@ -84,10 +85,7 @@ const Movie = ({ movie, viewTrailer, closeCard }) => {
                 <i className="bi bi-check"></i>
               </button>
             )}
-            <button
-              type="button"
-              className="btn btn-dark"
-              onClick={() => viewTrailer(movie)}>
+            <button type="button" className="btn btn-dark" onClick={() => {}}>
               View Trailer
             </button>
           </div>
@@ -99,6 +97,7 @@ const Movie = ({ movie, viewTrailer, closeCard }) => {
                 : placeholder
             }
             alt="Movie poster"
+            style={{ width: "100px" }}
           />
         </div>
         <h6 className="title mobile-card">{movie.title}</h6>
@@ -115,4 +114,4 @@ const Movie = ({ movie, viewTrailer, closeCard }) => {
   );
 };
 
-export default Movie;
+export default MovieComponent;
