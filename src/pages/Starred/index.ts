@@ -1,1 +1,3 @@
-export { default } from "./Starred";
+import LazyLoader from "@/LazyLoader";
+
+export default LazyLoader(() => import("./Starred"));
