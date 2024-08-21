@@ -1,5 +1,5 @@
-import { Movie } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { Movie } from "@/types";
 
 type StarredState = {
   data: Array<Movie>;

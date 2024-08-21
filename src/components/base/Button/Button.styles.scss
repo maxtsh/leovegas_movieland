@@ -1,6 +1,4 @@
-/* Button.css */
-
-/* Base button style */
+// Base button style
 .btn {
   display: flex;
   cursor: pointer;
@@ -13,6 +11,7 @@
   transition: background-color 0.3s ease;
 }
 
+// Sizes
 .btn-sm {
   padding: 0.3rem 0.75rem;
   height: 1rem;
@@ -32,7 +31,7 @@
   width: 100%;
 }
 
-/* Primary variant */
+// Primary variant
 .btn-primary {
   color: hsl(var(--text-primary));
   border: var(--primary);
@@ -44,7 +43,7 @@
   background-color: var(--primary-400);
 }
 
-/* Secondary variant */
+// Secondary variant
 .btn-secondary {
   color: black;
   border: hsl(var(--text-primary));
@@ -57,7 +56,7 @@
   background-color: var(--primary);
 }
 
-/* Ghost variant */
+// Ghost variant */
 .btn-ghost {
   color: hsl(var(--text-primary));
   border: transparent;
@@ -70,7 +69,7 @@
   background-color: transparent;
 }
 
-/* Danger variant */
+// Danger variant
 .btn-danger {
   color: hsl(var(--text-primary));
   border: var(--danger);
