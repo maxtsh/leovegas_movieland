@@ -8,7 +8,7 @@ type Props = {
 
 function MoviesGrid({ movies }: Props) {
   return (
-    <div className="container">
+    <div className="movies-grid">
       {movies?.map((movie) => {
         return <MovieComponent movie={movie} key={movie.id} />;
       })}

@@ -22,7 +22,7 @@ const watchLaterSlice = createSlice({
       );
       state.data = state.data.toSpliced(indexOfId, 1);
     },
-    remveAllWatchLater: (state) => {
+    clearWatchLater: (state) => {
       state.data = [];
     },
   },

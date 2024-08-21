@@ -34,7 +34,7 @@
 
 /* Primary variant */
 .btn-primary {
-  color: white;
+  color: hsl(var(--text-primary));
   border: var(--primary);
   background-color: var(--primary);
 }
@@ -47,32 +47,32 @@
 /* Secondary variant */
 .btn-secondary {
   color: black;
-  border: white;
-  background-color: white;
+  border: hsl(var(--text-primary));
+  background-color: hsl(var(--text-primary));
 }
 
 .btn-secondary:hover {
-  color: white;
+  color: hsl(var(--text-primary));
   border: var(--primary);
   background-color: var(--primary);
 }
 
 /* Ghost variant */
 .btn-ghost {
-  color: white;
+  color: hsl(var(--text-primary));
   border: transparent;
   background-color: transparent;
 }
 
 .btn-ghost:hover {
-  color: white;
+  color: hsl(var(--text-primary));
   border: transparent;
   background-color: transparent;
 }
 
 /* Danger variant */
 .btn-danger {
-  color: white;
+  color: hsl(var(--text-primary));
   border: var(--danger);
   background-color: var(--danger);
 }

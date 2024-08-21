@@ -1,6 +1,7 @@
 :root {
-  --dark-blue: 234, 100%, 16%;
   --light-gray: 0, 0%, 80%;
+  --dark-blue: 234, 100%, 16%;
+  --text-primary: 0, 0%, 100%;
 
   --primary: hsl(193, 77%, 55%);
   --primary-50: hsl(192, 77%, 95%);
@@ -41,9 +42,4 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }

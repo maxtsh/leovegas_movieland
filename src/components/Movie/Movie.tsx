@@ -119,7 +119,7 @@ function MovieComponent({ movie }: Props) {
           </div>
           <Image
             width="100%"
-            height="25rem"
+            height="auto"
             Fallback={placeholder}
             alt={`Movie poster for ${movie.title}`}
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}

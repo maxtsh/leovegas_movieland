@@ -39,7 +39,7 @@
 
 .info_panel {
   padding-top: 2rem;
-  color: white;
+  color: hsl(var(--text-primary));
   background: transparent;
   display: none;
   animation: vanish 1s;
@@ -101,7 +101,7 @@
 }
 
 .overlay {
-  color: white;
+  color: hsl(var(--text-primary));
   background-color: #111;
   opacity: 0;
   -webkit-transition: opacity 0.4s ease-in-out;
@@ -120,7 +120,7 @@ button.close {
   padding: 0;
 
   &:hover {
-    border: 2px solid white;
+    border: 2px solid hsl(var(--text-primary));
   }
 }
 
@@ -132,11 +132,6 @@ button.close {
     padding: 0 0 0.625rem;
     font-size: 1.2rem;
   }
-}
-
-img {
-  width: 100%;
-  height: auto;
 }
 
 .btn-star {
@@ -152,7 +147,7 @@ img {
 
 .card {
   position: relative;
-  color: white;
+  color: hsl(var(--text-primary));
   text-align: center;
   background: transparent;
   border: none;
@@ -218,7 +213,7 @@ img {
       z-index: 999;
       width: 100%;
       height: auto;
-      border: 0.1875rem solid white;
+      border: 0.1875rem solid hsl(var(--text-primary));
       border-radius: 0.3125rem;
       transform: none;
 
@@ -255,7 +250,7 @@ img {
         height: 3.75rem;
         font-size: 3.125rem;
         line-height: 1.25rem;
-        color: white;
+        color: hsl(var(--text-primary));
         background: transparent;
         border: none;
 

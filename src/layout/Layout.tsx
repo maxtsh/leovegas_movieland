@@ -4,9 +4,9 @@ import "./Layout.styles.scss";
 
 function Layout() {
   return (
-    <div className="App">
+    <div className="container">
       <Header />
-      <main className="container">
+      <main className="content">
         <Outlet />
       </main>
     </div>
