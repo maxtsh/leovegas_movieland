@@ -1,4 +1,11 @@
-import { Link, NavLink, useSearchParams } from "react-router-dom";
+import { useRef } from "react";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { FaFilm, FaRegStar, FaStar } from "react-icons/fa6";
 import debounce from "@/utils/debounce";
 import Input from "@/components/base/Input";
@@ -6,10 +13,11 @@ import { getMoviesList } from "@/data/moviesSlice";
 import useTypedDispatch from "@/hooks/useTypedDispatch";
 import useTypedSelector from "@/hooks/useTypedSelector";
 import "./Header.styles.scss";
-import { useRef } from "react";
 
 function Header() {
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const starred = useTypedSelector((state) => state.starred);
@@ -23,6 +31,9 @@ function Header() {
 
     searchParams.delete("search");
     if (query) searchParams.append("search", query);
+
+    if (pathname !== "/") navigate("/");
+
     setSearchParams(searchParams);
   }, 300);
 

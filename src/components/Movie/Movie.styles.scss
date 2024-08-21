@@ -42,7 +42,7 @@
   color: hsl(var(--text-primary));
   background: transparent;
   display: none;
-  animation: vanish 1s;
+  animation: vanish 0.5s;
 
   .bi-star:hover {
     color: var(--danger);
@@ -167,7 +167,7 @@ button.close {
 
     .info_panel {
       display: block;
-      animation: appear 1s;
+      animation: appear 0.5s;
     }
   }
 
@@ -222,7 +222,7 @@ button.close {
       }
       .info_panel {
         display: block;
-        animation: appear 1s;
+        animation: appear 0.5s;
       }
 
       h6.title {

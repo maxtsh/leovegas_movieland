@@ -4,8 +4,8 @@ import MoviesGrid from "@/components/MoviesGrid";
 import useTypedSelector from "@/hooks/useTypedSelector";
 import useTypedDispatch from "@/hooks/useTypedDispatch";
 import { getMoviesList, moviesActions } from "@/data/moviesSlice";
-import "./Home.styles.scss";
 import InfiniteMoviesScroll from "@/components/InfiniteMoviesScroll";
+import "./Home.styles.scss";
 
 function Home() {
   const mountRef = useRef(false);
