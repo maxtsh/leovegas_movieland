@@ -1,13 +1,9 @@
 import { movieAPIPath } from "./constants";
 import requestHanlder from "./requestHandler";
+import type { MovieDetails } from "@/types";
 
-export const getMovieById = async (id: string) => {
+export const getMovieById = async (id: number) => {
   const url = movieAPIPath(id);
 
-  try {
-    const data = await requestHanlder(url);
-    return data;
-  } catch (err) {
-    return err;
-  }
+  return requestHanlder<MovieDetails>(url);
 };

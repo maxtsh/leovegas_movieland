@@ -5,10 +5,11 @@ import type { Props, ImageStatus } from "./Image.types";
 import "./Image.styles.scss";
 
 const Image: React.FC<Props> = ({
-  Fallback,
-  height,
-  width,
   src,
+  width,
+  height,
+  Fallback,
+  loadingStyles,
   className,
   ...props
 }) => {
@@ -27,7 +28,7 @@ const Image: React.FC<Props> = ({
     <>
       {!status.error && !status.loaded && (
         <div style={{ width, height }} className="img-loading">
-          <Skeleton style={{ width, height }} />
+          <Skeleton style={loadingStyles} />
         </div>
       )}
       <img
