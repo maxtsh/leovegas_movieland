@@ -11,6 +11,16 @@ export default defineConfig({
     sourcemap: false,
     cssCodeSplit: true,
     chunkSizeWarningLimit: 400,
+    rollupOptions: {
+      output: {
+        compact: true,
+        minifyInternalExports: true,
+        manualChunks: {
+          react: ["react", "react-router-dom", "react-dom"],
+          redux: ["react-redux", "@reduxjs/toolkit"],
+        },
+      },
+    },
   },
   resolve: {
     alias: [
