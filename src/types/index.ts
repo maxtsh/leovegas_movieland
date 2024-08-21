@@ -1,5 +1,10 @@
 export type APIStatuses = "idle" | "error" | "success" | "loading";
 
+export type MovieParams = {
+  page?: number;
+  query?: string;
+};
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;

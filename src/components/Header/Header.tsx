@@ -19,7 +19,7 @@ function Header() {
   const searchMovies = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
 
-    dispatch(getMoviesList(query)).catch(() => {});
+    dispatch(getMoviesList({ query })).catch(() => {});
 
     searchParams.delete("search");
     if (query) searchParams.append("search", query);
@@ -27,7 +27,7 @@ function Header() {
   }, 300);
 
   const handleGoHome = (currentSearchQuery: string | null) => {
-    if (currentSearchQuery) dispatch(getMoviesList()).catch(() => {});
+    if (currentSearchQuery) dispatch(getMoviesList({})).catch(() => {});
     if (inputRef.current) inputRef.current.value = "";
     searchParams.delete("search");
     setSearchParams(searchParams);

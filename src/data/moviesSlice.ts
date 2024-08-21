@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import requestHandler from "@/services/requestHandler";
-import { searchMovieAPIPath, discoverAPIPath } from "@/services/constants";
-import type { APIStatuses, MovieListResult } from "@/types";
+import { getMovies } from "@/services";
+import type { APIStatuses, MovieListResult, MovieParams } from "@/types";
 
 type MoviesState = {
   status: APIStatuses;
@@ -11,12 +10,8 @@ type MoviesState = {
 
 export const getMoviesList = createAsyncThunk(
   "moviesList",
-  (query?: string) => {
-    const url = query
-      ? searchMovieAPIPath(query)
-      : discoverAPIPath("vote_count.desc");
-
-    return requestHandler<MovieListResult>(url);
+  (params: MovieParams) => {
+    return getMovies(params);
   },
 );
 

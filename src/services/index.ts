@@ -1,9 +1,17 @@
-import { movieAPIPath } from "./constants";
-import requestHanlder from "./requestHandler";
-import type { MovieDetails } from "@/types";
+import { discoverAPIPath, movieAPIPath, searchMovieAPIPath } from "./constants";
+import requestHandler from "./requestHandler";
+import type { MovieParams, MovieDetails, MovieListResult } from "@/types";
 
 export const getMovieById = async (id: number) => {
   const url = movieAPIPath(id);
 
-  return requestHanlder<MovieDetails>(url);
+  return requestHandler<MovieDetails>(url);
+};
+
+export const getMovies = async ({ query, page }: MovieParams) => {
+  const url = query
+    ? searchMovieAPIPath(query)
+    : discoverAPIPath(page || 1, "vote_count.desc");
+
+  return requestHandler<MovieListResult>(url);
 };

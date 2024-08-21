@@ -118,11 +118,7 @@ function MovieComponent({ movie }: Props) {
                   <FaCheck size={18} className="bi bi-check" />
                 </Button>
               )}
-              <Button
-                fullWidth
-                variant="secondary"
-                className="btn btn-dark"
-                onClick={handleShowModal}>
+              <Button fullWidth variant="secondary" onClick={handleShowModal}>
                 View Trailer
               </Button>
             </div>

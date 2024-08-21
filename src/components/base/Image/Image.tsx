@@ -36,7 +36,7 @@ const Image: React.FC<Props> = ({
         width={width}
         height={height}
         className={classes}
-        src={!status.error ? src || NotFound : Fallback || NotFound}
+        src={!status.error ? src || Fallback : NotFound}
         onLoad={onLoad}
         onError={onError}
       />

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
+import { FaRegStar } from "react-icons/fa6";
 import starredSlice from "@/data/starredSlice";
 import Button from "@/components/base/Button";
 import useTypedSelector from "@/hooks/useTypedSelector";
 import useTypedDispatch from "@/hooks/useTypedDispatch";
 import MoviesGrid from "@/components/MoviesGrid";
 import "./Starred.styles.scss";
-import { FaRegStar } from "react-icons/fa6";
 
 function Starred() {
   const dispatch = useTypedDispatch();
