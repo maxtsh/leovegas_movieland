@@ -1,19 +1,19 @@
 import MovieComponent from "@/components/Movie";
 import type { Movie } from "@/types";
-import "./movies.scss";
+import "./MoviesGrid.styles.scss";
 
 type Props = {
   movies: Array<Movie>;
 };
 
-const Movies = ({ movies }: Props) => {
+function MoviesGrid({ movies }: Props) {
   return (
-    <div data-testid="movies">
+    <div className="container">
       {movies?.map((movie) => {
         return <MovieComponent movie={movie} key={movie.id} />;
       })}
     </div>
   );
-};
+}
 
-export default Movies;
+export default MoviesGrid;

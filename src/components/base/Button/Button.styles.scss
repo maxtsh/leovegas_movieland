@@ -1,0 +1,83 @@
+/* Button.css */
+
+/* Base button style */
+.btn {
+  display: flex;
+  cursor: pointer;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  align-items: center;
+  border-radius: 0.25rem;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-sm {
+  padding: 0.3rem 0.75rem;
+  height: 1rem;
+}
+
+.btn-md {
+  height: 1.75rem;
+  padding: 0.6rem 1.25rem;
+}
+
+.btn-lg {
+  height: 2.5rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Primary variant */
+.btn-primary {
+  color: white;
+  border: var(--primary);
+  background-color: var(--primary);
+}
+
+.btn-primary:hover {
+  border: var(--primary-400);
+  background-color: var(--primary-400);
+}
+
+/* Secondary variant */
+.btn-secondary {
+  color: black;
+  border: white;
+  background-color: white;
+}
+
+.btn-secondary:hover {
+  color: white;
+  border: var(--primary);
+  background-color: var(--primary);
+}
+
+/* Ghost variant */
+.btn-ghost {
+  color: white;
+  border: transparent;
+  background-color: transparent;
+}
+
+.btn-ghost:hover {
+  color: white;
+  border: transparent;
+  background-color: transparent;
+}
+
+/* Danger variant */
+.btn-danger {
+  color: white;
+  border: var(--danger);
+  background-color: var(--danger);
+}
+
+.btn-danger:hover {
+  border: var(--danger-400);
+  background-color: var(--danger-400);
+}

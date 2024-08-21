@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import Movies from "@/components/Movies";
+import MoviesGrid from "@/components/MoviesGrid";
 import { getMoviesList, moviesActions } from "@/data/moviesSlice";
 import { useSearchParams } from "react-router-dom";
 // import { getMovieById } from "@/services";
@@ -11,8 +11,8 @@ function Home() {
   const mountRef = useRef(false);
   const dispatch = useTypedDispatch();
   const [searchParams] = useSearchParams();
-  const { data, status, error } = useTypedSelector((state) => state.movies);
-  const moviesData = data?.results || [];
+  const moviesList = useTypedSelector((state) => state.movies);
+  const moviesData = moviesList?.data?.results || [];
   const searchQuery = searchParams.get("search") ?? undefined;
 
   useEffect(() => {
@@ -26,14 +26,7 @@ function Home() {
     };
   }, [searchQuery, dispatch]);
 
-  //   const closeCard = () => {};
-
-  //   const viewTrailer = async (movie: { id: string }) => {
-  //     await getMovieById(movie.id);
-  //     if (!videoKey) setOpen(true);
-  //   };
-
-  return <Movies movies={moviesData} />;
+  return <MoviesGrid movies={moviesData} />;
 }
 
 export default Home;

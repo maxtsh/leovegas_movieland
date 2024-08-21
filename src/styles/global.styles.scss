@@ -1,0 +1,49 @@
+:root {
+  --dark-blue: 234, 100%, 16%;
+  --light-gray: 0, 0%, 80%;
+
+  --primary: hsl(193, 77%, 55%);
+  --primary-50: hsl(192, 77%, 95%);
+  --primary-100: hsl(193, 77%, 85%);
+  --primary-200: hsl(193, 78%, 75%);
+  --primary-300: hsl(193, 78%, 65%);
+  --primary-400: hsl(193, 77%, 55%);
+  --primary-500: hsl(193, 77%, 45%);
+  --primary-600: hsl(193, 78%, 35%);
+  --primary-700: hsl(193, 78%, 25%);
+  --primary-800: hsl(193, 77%, 15%);
+  --primary-900: hsl(195, 77%, 5%);
+
+  --danger: hsl(357, 92%, 55%);
+  --danger-50: hsl(355, 92%, 95%);
+  --danger-100: hsl(357, 92%, 85%);
+  --danger-200: hsl(357, 92%, 75%);
+  --danger-300: hsl(357, 92%, 65%);
+  --danger-400: hsl(357, 92%, 55%);
+  --danger-500: hsl(357, 92%, 45%);
+  --danger-600: hsl(357, 92%, 35%);
+  --danger-700: hsl(357, 92%, 25%);
+  --danger-800: hsl(357, 92%, 15%);
+  --danger-900: hsl(357, 92%, 15%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

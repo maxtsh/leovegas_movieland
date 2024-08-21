@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  gap: 2rem;
+  color: white;
+  padding: 6.25rem 1.25rem 0rem 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+
+  @media (max-width: 720px) {
+    padding-top: 4.375rem;
+  }
+}
+

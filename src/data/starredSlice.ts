@@ -1,21 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Movie } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+type StarredState = {
+  data: Array<Movie>;
+};
+
+const initialState: StarredState = {
+  data: [],
+};
 
 const starredSlice = createSlice({
   name: "starred",
-  initialState: {
-    data: [],
-  },
+  initialState,
   reducers: {
-    starMovie: (state, action) => {
+    starMovie: (state, action: PayloadAction<Movie>) => {
       state.data = [action.payload, ...state.data];
     },
-    unstarMovie: (state, action) => {
+    unstarMovie: (state, action: PayloadAction<number>) => {
       const indexOfId = state.data.findIndex(
-        (key) => key.id === action.payload.id,
+        (key) => key.id === action.payload,
       );
-      state.data.splice(indexOfId, 1);
+      state.data = state.data.toSpliced(indexOfId, 1);
     },
-    clearAllStarred: (state) => {
+    clearStarred: (state) => {
       state.data = [];
     },
   },

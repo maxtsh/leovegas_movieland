@@ -1,117 +1,142 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { FaRegStar, FaStar, FaCheck } from "react-icons/fa";
+import Button from "@/components/base/Button";
+import Image from "@/components/base/Image/Image";
 import starredSlice from "@/data/starredSlice";
 import watchLaterSlice from "@/data/watchLaterSlice";
 import placeholder from "@/assets/not-found-500X750.jpeg";
+import useTypedSelector from "@/hooks/useTypedSelector";
+import useTypedDispatch from "@/hooks/useTypedDispatch";
 import type { Movie } from "@/types";
+import "./Movie.styles.scss";
 
 type Props = {
   movie: Movie;
 };
 
-const MovieComponent = ({ movie, viewTrailer, closeCard }: Props) => {
-  const state = useSelector((state) => state);
-  const { starred, watchLater } = state;
+function MovieComponent({ movie }: Props) {
+  const dispatch = useTypedDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const year = movie.release_date?.substring(0, 4);
   const { starMovie, unstarMovie } = starredSlice.actions;
+  const starred = useTypedSelector((state) => state.starred);
+  const watchLater = useTypedSelector((state) => state.watchLater);
   const { addToWatchLater, removeFromWatchLater } = watchLaterSlice.actions;
 
-  const dispatch = useDispatch();
+  const handleOpen = () => setIsOpen(true);
 
-  const myClickHandler = (e) => {
-    if (!e) var e = window.event;
-    e.cancelBubble = true;
-    if (e.stopPropagation) e.stopPropagation();
-    e.target.parentElement.parentElement.classList.remove("opened");
+  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsOpen(false);
+  };
+
+  const handleStarMovie = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    movieItem: Movie,
+  ) => {
+    e.stopPropagation();
+    dispatch(starMovie(movieItem));
+  };
+
+  const handleRemoveFromStarred = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    movieId: number,
+  ) => {
+    e.stopPropagation();
+    dispatch(unstarMovie(movieId));
+  };
+
+  const handleAddToWatchLater = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    movieItem: Movie,
+  ) => {
+    e.stopPropagation();
+    dispatch(addToWatchLater(movieItem));
+  };
+
+  const handleRemoveFromWatchLater = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    movieId: number,
+  ) => {
+    e.stopPropagation();
+    dispatch(removeFromWatchLater(movieId));
   };
 
   return (
-    <div className="wrapper col-3 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-      <div
-        className="card"
-        onClick={(e) => e.currentTarget.classList.add("opened")}>
-        <div className="card-body text-center">
+    <div className="wrapper">
+      <div className={`card${isOpen ? " opened" : ""}`} onClick={handleOpen}>
+        <div className="card-body">
           <div className="overlay" />
           <div className="info_panel">
-            <div className="overview">{movie.overview}</div>
-            <div className="year">{movie.release_date?.substring(0, 4)}</div>
-            {!starred.data.map((movie) => movie.id).includes(movie.id) ? (
-              <span
-                className="btn-star"
-                data-testid="starred-link"
-                onClick={() =>
-                  dispatch(
-                    starMovie({
-                      id: movie.id,
-                      overview: movie.overview,
-                      release_date: movie.release_date?.substring(0, 4),
-                      poster_path: movie.poster_path,
-                      title: movie.title,
-                    }),
-                  )
-                }>
-                <i className="bi bi-star" />
-              </span>
-            ) : (
-              <span
-                className="btn-star"
-                data-testid="unstar-link"
-                onClick={() => dispatch(unstarMovie(movie))}>
-                <i className="bi bi-star-fill" data-testid="star-fill" />
-              </span>
-            )}
-            {!watchLater.data.map((movie) => movie.id).includes(movie.id) ? (
-              <button
-                type="button"
-                data-testid="watch-later"
-                className="btn btn-light btn-watch-later"
-                onClick={() =>
-                  dispatch(
-                    addToWatchLater({
-                      id: movie.id,
-                      overview: movie.overview,
-                      release_date: movie.release_date?.substring(0, 4),
-                      poster_path: movie.poster_path,
-                      title: movie.title,
-                    }),
-                  )
-                }>
-                Watch Later
-              </button>
-            ) : (
-              <button
-                type="button"
-                data-testid="remove-watch-later"
-                className="btn btn-light btn-watch-later blue"
-                onClick={() => dispatch(removeFromWatchLater(movie))}>
-                <i className="bi bi-check"></i>
-              </button>
-            )}
-            <button type="button" className="btn btn-dark" onClick={() => {}}>
-              View Trailer
-            </button>
+            <div className="info_panel__overview">{movie.overview}</div>
+            <div className="year">{year}</div>
+            <div className="info_panel__actions">
+              {!starred.data.map((item) => item.id).includes(movie.id) ? (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={(e) => handleStarMovie(e, movie)}>
+                  <span className="btn-star" data-testid="starred-link">
+                    <FaRegStar size={30} />
+                  </span>
+                </Button>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={(e) => handleRemoveFromStarred(e, movie.id)}>
+                  <span className="btn-star" data-testid="unstar-link">
+                    <FaStar size={30} />
+                  </span>
+                </Button>
+              )}
+              {!watchLater.data.map((item) => item.id).includes(movie.id) ? (
+                <Button
+                  fullWidth
+                  variant="secondary"
+                  data-testid="watch-later"
+                  onClick={(e) => handleAddToWatchLater(e, movie)}>
+                  Watch Later
+                </Button>
+              ) : (
+                <Button
+                  fullWidth
+                  variant="primary"
+                  data-testid="remove-watch-later"
+                  onClick={(e) => handleRemoveFromWatchLater(e, movie.id)}>
+                  In Watch List
+                  <FaCheck size={18} className="bi bi-check" />
+                </Button>
+              )}
+              <Button
+                fullWidth
+                variant="secondary"
+                className="btn btn-dark"
+                onClick={() => {}}>
+                View Trailer
+              </Button>
+            </div>
           </div>
-          <img
-            className="center-block"
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                : placeholder
-            }
-            alt="Movie poster"
-            style={{ width: "100px" }}
+          <Image
+            width="100%"
+            height="25rem"
+            Fallback={placeholder}
+            alt={`Movie poster for ${movie.title}`}
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           />
         </div>
         <h6 className="title mobile-card">{movie.title}</h6>
         <h6 className="title">{movie.title}</h6>
-        <button
-          type="button"
+        <Button
+          variant="ghost"
           className="close"
-          onClick={(e) => myClickHandler(e)}
-          aria-label="Close">
+          aria-label="Close"
+          onClick={handleClose}>
           <span aria-hidden="true">&times;</span>
-        </button>
+        </Button>
       </div>
     </div>
   );
-};
+}
 
 export default MovieComponent;
