@@ -5,11 +5,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import moviesSlice from "../data/moviesSlice";
 import starredSlice from "../data/starredSlice";
 import watchLaterSlice from "../data/watchLaterSlice";
+import { RootState } from "@/data/store";
+
+type Config = {
+  preloadedState?: RootState;
+  store?: ReturnType<typeof configureStore>;
+  [key: string]: unknown;
+};
 
 export function renderWithProviders(
   ui: React.ReactNode,
   {
-    preloadedState = {},
+    preloadedState = {} as RootState,
     store = configureStore({
       reducer: {
         movies: moviesSlice.reducer,
@@ -19,7 +26,7 @@ export function renderWithProviders(
       preloadedState,
     }),
     ...renderOptions
-  } = {},
+  }: Config = {},
 ) {
   function Wrapper({ children }: React.PropsWithChildren) {
     return (
