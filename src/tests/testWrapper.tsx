@@ -1,15 +1,13 @@
-import React from "react";
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import moviesSlice from "../data/moviesSlice";
 import starredSlice from "../data/starredSlice";
 import watchLaterSlice from "../data/watchLaterSlice";
 
 export function renderWithProviders(
-  ui,
+  ui: React.ReactNode,
   {
     preloadedState = {},
     store = configureStore({
@@ -23,15 +21,15 @@ export function renderWithProviders(
     ...renderOptions
   } = {},
 ) {
-  setupListeners(store.dispatch);
-
-  function Wrapper({ children }) {
+  function Wrapper({ children }: React.PropsWithChildren) {
     return (
-      <Provider store={store}>
-        <BrowserRouter>{children}</BrowserRouter>
-      </Provider>
+      <MemoryRouter>
+        <Provider store={store}>{children}</Provider>
+      </MemoryRouter>
     );
   }
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export default renderWithProviders;

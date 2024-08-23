@@ -11,14 +11,13 @@ function Starred() {
   const dispatch = useTypedDispatch();
   const { clearStarred } = starredSlice.actions;
   const starredMovies = useTypedSelector((state) => state.starred);
-
   const starredMoviesData = starredMovies.data;
   const starredMoviesCount = starredMoviesData.length;
 
   const handleClearStarred = () => dispatch(clearStarred());
 
   return (
-    <div className="starred-movies" data-testid="starred">
+    <div className="starred-movies" data-testid="starred-movies">
       {starredMoviesCount > 0 ? (
         <div data-testid="starred-movies" className="starred-movies__list">
           <h6 className="starred-movies__list__title">Starred Movies</h6>

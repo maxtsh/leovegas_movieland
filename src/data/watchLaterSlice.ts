@@ -16,7 +16,7 @@ const watchLaterSlice = createSlice({
     addToWatchLater: (state, action: PayloadAction<Movie>) => {
       state.data = [action.payload, ...state.data];
     },
-    removeFromWatchLater: (state, action: PayloadAction<number>) => {
+    removeFromWatchLater: (state, action: PayloadAction<string>) => {
       const indexOfId = state.data.findIndex(
         (key) => key.id === action.payload,
       );

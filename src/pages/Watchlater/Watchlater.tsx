@@ -11,14 +11,12 @@ function Watchlater() {
   const dispatch = useTypedDispatch();
   const { clearWatchLater } = watchLaterSlice.actions;
   const watchLaterMovies = useTypedSelector((state) => state.watchLater);
-
   const watchLaterMoviesData = watchLaterMovies.data;
   const watchlaterMoviesCount = watchLaterMoviesData.length;
-
   const handleClearWatchLater = () => dispatch(clearWatchLater());
 
   return (
-    <div className="watchlater-movies" data-testid="watch-later-div">
+    <div className="watchlater-movies" data-testid="watchlater-movies">
       {watchlaterMoviesCount > 0 ? (
         <div
           data-testid="watch-later-movies"

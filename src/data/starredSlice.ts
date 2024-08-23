@@ -16,7 +16,7 @@ const starredSlice = createSlice({
     starMovie: (state, action: PayloadAction<Movie>) => {
       state.data = [action.payload, ...state.data];
     },
-    unstarMovie: (state, action: PayloadAction<number>) => {
+    unstarMovie: (state, action: PayloadAction<string>) => {
       const indexOfId = state.data.findIndex(
         (key) => key.id === action.payload,
       );

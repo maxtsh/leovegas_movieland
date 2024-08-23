@@ -1,41 +1,19 @@
 import { useRef } from "react";
-import {
-  Link,
-  NavLink,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
 import { FaFilm, FaRegStar, FaStar } from "react-icons/fa6";
-import debounce from "@/utils/debounce";
-import Input from "@/components/base/Input";
 import { getMoviesList } from "@/data/moviesSlice";
 import useTypedDispatch from "@/hooks/useTypedDispatch";
 import useTypedSelector from "@/hooks/useTypedSelector";
+import HeaderSearch from "./HeaderSearch";
 import "./Header.styles.scss";
 
 function Header() {
   const dispatch = useTypedDispatch();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const starred = useTypedSelector((state) => state.starred);
   const searchQuery = searchParams.get("search");
   const starredItemsCount = starred.data.length;
-
-  const searchMovies = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-
-    dispatch(getMoviesList({ query })).catch(() => {});
-
-    searchParams.delete("search");
-    if (query) searchParams.append("search", query);
-
-    if (pathname !== "/") navigate("/");
-
-    setSearchParams(searchParams);
-  }, 300);
 
   const handleGoHome = (currentSearchQuery: string | null) => {
     if (currentSearchQuery) dispatch(getMoviesList({})).catch(() => {});
@@ -55,19 +33,7 @@ function Header() {
         </Link>
       </div>
       <div className="header__actions">
-        <div className="input-group rounded">
-          <Input
-            type="search"
-            ref={inputRef}
-            data-testid="search-movies"
-            placeholder="Search movies..."
-            aria-label="Search movies"
-            aria-describedby="search-addon"
-            className="form-control rounded"
-            defaultValue={searchQuery || ""}
-            onChange={searchMovies}
-          />
-        </div>
+        <HeaderSearch inputRef={inputRef} />
         <nav>
           <NavLink
             to="/starred"

@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getMovies } from "@/services";
-import type { APIStatuses, MovieListResult, MovieParams } from "@/types";
+import type { APIStatuses, Movie, MovieListResult, MovieParams } from "@/types";
 
 type MoviesState = {
   status: APIStatuses;
@@ -25,6 +25,11 @@ const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
+    appendMovies(state, action: PayloadAction<Array<Movie>>) {
+      if (state.data) {
+        state.data.results = state.data.results.concat(action.payload);
+      }
+    },
     clearData(state) {
       state.data = null;
       state.error = null;

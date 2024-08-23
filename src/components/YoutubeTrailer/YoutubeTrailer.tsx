@@ -3,7 +3,7 @@ import ReactPlayer from "react-player";
 import { getMovieById } from "@/services";
 
 type Props = {
-  movieId: number;
+  movieId: string;
 };
 
 function YoutubeTrailer({ movieId }: Props) {
@@ -35,8 +35,8 @@ function YoutubeTrailer({ movieId }: Props) {
       height="100%"
       playing={true}
       controls={true}
+      data-testid="video-player"
       className="video-player"
-      data-testid="youtube-player"
       url={`https://www.youtube.com/watch?v=${videoKey}`}
     />
   );

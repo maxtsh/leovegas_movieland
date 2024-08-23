@@ -12,12 +12,9 @@ test("Error boundary renders on throwing error", () => {
     </ErrorBoundary>,
   );
 
-  const title = screen.getByRole("heading");
-  const button = screen.getByRole("button");
+  const title = screen.getByRole("heading", { name: /ooooooppps/i });
+  const button = screen.getByRole("button", { name: /retry/i });
 
   expect(title).toBeInTheDocument();
-  expect(title).toHaveTextContent("Ooooooppps...!");
-
   expect(button).toBeInTheDocument();
-  expect(button).toHaveTextContent("Retry");
 });

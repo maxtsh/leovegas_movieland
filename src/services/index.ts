@@ -2,7 +2,7 @@ import { discoverAPIPath, movieAPIPath, searchMovieAPIPath } from "./constants";
 import requestHandler from "./requestHandler";
 import type { MovieParams, MovieDetails, MovieListResult } from "@/types";
 
-export const getMovieById = async (id: number) => {
+export const getMovieById = async (id: string) => {
   const url = movieAPIPath(id);
 
   return requestHandler<MovieDetails>(url);

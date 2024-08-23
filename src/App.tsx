@@ -8,7 +8,6 @@ import Providers from "@/Providers";
 import Home from "@/pages/Home";
 import Starred from "@/pages/Starred";
 import Watchlater from "@/pages/Watchlater";
-import "reactjs-popup/dist/index.css";
 import "@/styles/global.styles.scss";
 
 const router = createBrowserRouter(

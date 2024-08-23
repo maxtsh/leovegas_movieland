@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  envPrefix: "LV",
   test: {
     alias: [
       { find: "@", replacement: new URL("./src/", import.meta.url).pathname },

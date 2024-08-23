@@ -30,12 +30,13 @@ function Modal({
   if (!show) return null;
 
   return renderPortal(
-    <div className={wrapperClasses}>
-      <div className={overlayClasses}></div>
+    <div role="dialog" aria-modal="true" className={wrapperClasses}>
+      <div className={overlayClasses} role="presentation"></div>
       <div className={contentClasses}>
         <Button
           size="md"
           variant="secondary"
+          aria-label="modal close button"
           className="modal__close-btn"
           onClick={onClose}>
           <FaX size={15} />

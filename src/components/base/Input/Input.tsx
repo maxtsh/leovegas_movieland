@@ -9,7 +9,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function InputComponent(
   const classes =
     `input ${className || ""} ${fullWidth ? "full-width" : ""}`.trim();
 
-  return <input ref={ref} {...attributes} className={classes} />;
+  return <input ref={ref} className={classes} {...attributes} />;
 });
 
 export default Input;

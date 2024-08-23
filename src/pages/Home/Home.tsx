@@ -29,20 +29,20 @@ function Home() {
   }, [searchQuery, dispatch]);
 
   return (
-    <div className="home-page">
+    <div data-testid="home-page" className="home-page">
       {moviesList.status === "loading" && (
         <div role="progressbar" className="loading">
           <h5 className="loading__title">Searching, be patient..!</h5>
         </div>
       )}
       {moviesList.status === "success" && (
-        <>
+        <div data-testid="moives-list" className="movies-list">
           <MoviesGrid movies={moviesData} />
           <InfiniteMoviesScroll initialPage={1} />
-        </>
+        </div>
       )}
       {moviesList.status === "error" && (
-        <div className="error">
+        <div role="alert" className="error">
           <h5 className="error__title">Error: {moviesList.error}</h5>
         </div>
       )}

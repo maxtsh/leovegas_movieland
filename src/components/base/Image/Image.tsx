@@ -28,7 +28,7 @@ const Image: React.FC<Props> = ({
     <>
       {!status.error && !status.loaded && (
         <div style={{ width, height }} className="img-loading">
-          <Skeleton style={loadingStyles} />
+          <Skeleton aria-label="loading image" style={loadingStyles} />
         </div>
       )}
       <img
@@ -36,7 +36,7 @@ const Image: React.FC<Props> = ({
         width={width}
         height={height}
         className={classes}
-        src={!status.error ? src || Fallback : NotFound}
+        src={!status.error ? src : Fallback || NotFound}
         onLoad={onLoad}
         onError={onError}
       />

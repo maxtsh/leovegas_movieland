@@ -5,10 +5,11 @@ import Button from "@/components/base/Button";
 import Image from "@/components/base/Image/Image";
 import starredSlice from "@/data/starredSlice";
 import watchLaterSlice from "@/data/watchLaterSlice";
-import placeholder from "@/assets/not-found-500X750.jpeg";
 import useTypedSelector from "@/hooks/useTypedSelector";
 import useTypedDispatch from "@/hooks/useTypedDispatch";
 import Movietrailer from "@/components/YoutubeTrailer";
+import { getMoviePoster } from "@/services/constants";
+import placeholder from "@/assets/not-found-500X750.jpeg";
 import type { Movie } from "@/types";
 import "./Movie.styles.scss";
 
@@ -23,9 +24,10 @@ function MovieComponent({ movie }: Props) {
   const year = movie.release_date?.substring(0, 4);
   const { starMovie, unstarMovie } = starredSlice.actions;
   const starred = useTypedSelector((state) => state.starred);
-
   const watchLater = useTypedSelector((state) => state.watchLater);
   const { addToWatchLater, removeFromWatchLater } = watchLaterSlice.actions;
+  const isStarred = starred.data.some((item) => item.id === movie.id);
+  const isInWatchLater = watchLater.data.some((item) => item.id === movie.id);
 
   const handleOpenState = () => setIsOpen(true);
 
@@ -48,7 +50,7 @@ function MovieComponent({ movie }: Props) {
 
   const handleRemoveFromStarred = (
     e: React.MouseEvent<HTMLButtonElement>,
-    movieId: number,
+    movieId: string,
   ) => {
     e.stopPropagation();
     dispatch(unstarMovie(movieId));
@@ -64,15 +66,16 @@ function MovieComponent({ movie }: Props) {
 
   const handleRemoveFromWatchLater = (
     e: React.MouseEvent<HTMLButtonElement>,
-    movieId: number,
+    movieId: string,
   ) => {
     e.stopPropagation();
     dispatch(removeFromWatchLater(movieId));
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" data-testid="movie-wrapper">
       <div
+        data-testid="movie-card"
         className={`card${isOpen ? " opened" : ""}`}
         onClick={handleOpenState}>
         <div className="card-body">
@@ -81,41 +84,39 @@ function MovieComponent({ movie }: Props) {
             <div className="info_panel__overview">{movie.overview}</div>
             <div className="year">{year}</div>
             <div className="info_panel__actions">
-              {!starred.data.map((item) => item.id).includes(movie.id) ? (
+              {isStarred ? (
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={(e) => handleStarMovie(e, movie)}>
-                  <span className="btn-star" data-testid="starred-link">
-                    <FaRegStar size={30} />
-                  </span>
+                  aria-label="Remove star from movie"
+                  onClick={(e) => handleRemoveFromStarred(e, movie.id)}>
+                  <FaStar size={30} className="btn-star" />
                 </Button>
               ) : (
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={(e) => handleRemoveFromStarred(e, movie.id)}>
-                  <span className="btn-star" data-testid="unstar-link">
-                    <FaStar size={30} />
-                  </span>
+                  aria-label="Star movie"
+                  onClick={(e) => handleStarMovie(e, movie)}>
+                  <FaRegStar size={30} className="btn-star" />
                 </Button>
               )}
-              {!watchLater.data.map((item) => item.id).includes(movie.id) ? (
-                <Button
-                  fullWidth
-                  variant="secondary"
-                  data-testid="watch-later"
-                  onClick={(e) => handleAddToWatchLater(e, movie)}>
-                  Watch Later
-                </Button>
-              ) : (
+              {isInWatchLater ? (
                 <Button
                   fullWidth
                   variant="primary"
-                  data-testid="remove-watch-later"
+                  aria-label="Remove movie from watch later list"
                   onClick={(e) => handleRemoveFromWatchLater(e, movie.id)}>
                   In Watch List
                   <FaCheck size={18} className="bi bi-check" />
+                </Button>
+              ) : (
+                <Button
+                  fullWidth
+                  variant="secondary"
+                  aria-label="Add movie to watch later list"
+                  onClick={(e) => handleAddToWatchLater(e, movie)}>
+                  Watch Later
                 </Button>
               )}
               <Button fullWidth variant="secondary" onClick={handleShowModal}>
@@ -128,8 +129,8 @@ function MovieComponent({ movie }: Props) {
             height="auto"
             Fallback={placeholder}
             alt={`Movie poster for ${movie.title}`}
+            src={getMoviePoster(movie.poster_path)}
             loadingStyles={{ width: "100%", height: "22rem" }}
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           />
         </div>
         <h6 className="title mobile-card">{movie.title}</h6>

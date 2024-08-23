@@ -1,8 +1,9 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
-import MoviesGrid from "@/components/MoviesGrid";
 import { getMovies } from "@/services";
-import type { APIStatuses, Movie } from "@/types";
+import moviesSlice from "@/data/moviesSlice";
+import useTypedDispatch from "@/hooks/useTypedDispatch";
+import type { APIStatuses } from "@/types";
 import "./InfiniteMoviesScroll.styles.scss";
 
 type Props = {
@@ -11,7 +12,6 @@ type Props = {
 
 type InfiniteScrollData = {
   error: null | string;
-  data: Array<Movie>;
   status: APIStatuses;
 };
 
@@ -19,11 +19,12 @@ let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
 function InfiniteMoviesScroll({ initialPage = 1 }: Props) {
   const page = useRef<number>(initialPage);
+  const dispatch = useTypedDispatch();
+  const { appendMovies } = moviesSlice.actions;
   const { ref, observerStatus } = useIntersectionObserver<HTMLDivElement>({
     threshold: 1,
   });
   const [state, setState] = useState<InfiniteScrollData>({
-    data: [],
     error: null,
     status: "idle",
   });
@@ -40,11 +41,12 @@ function InfiniteMoviesScroll({ initialPage = 1 }: Props) {
 
       // Add a slight delay to make sure we don't get multiple requests
       timeoutId = setTimeout(() => {
-        setState((prevData) => ({
+        setState({
           error: null,
           status: "success",
-          data: prevData.data.concat(list.results),
-        }));
+        });
+
+        dispatch(appendMovies(list.results));
       }, 50);
 
       page.current = newPage;
@@ -55,7 +57,7 @@ function InfiniteMoviesScroll({ initialPage = 1 }: Props) {
         error: err instanceof Error ? err.message : "Something went wrong",
       }));
     }
-  }, []);
+  }, [dispatch, appendMovies]);
 
   useEffect(() => {
     if (observerStatus?.isIntersecting && state.status !== "loading") {
@@ -67,8 +69,7 @@ function InfiniteMoviesScroll({ initialPage = 1 }: Props) {
     `infinite-scroll__trigger ${state.status === "loading" ? "hide" : ""}`.trim();
 
   return (
-    <div className="infinite-scroll">
-      <MoviesGrid movies={state.data} />
+    <div className="infinite-scroll" data-testid="infinite-scroll">
       {state.status === "error" && (
         <div className="infinite-scroll__error">
           <h5 className="infinite-scroll__error__title">{state.error}</h5>
@@ -81,7 +82,10 @@ function InfiniteMoviesScroll({ initialPage = 1 }: Props) {
           </h5>
         </div>
       )}
-      <div ref={ref} className={triggerClasses}></div>
+      <div
+        ref={ref}
+        className={triggerClasses}
+        data-testid="infinite-scroll-trigger"></div>
     </div>
   );
 }
