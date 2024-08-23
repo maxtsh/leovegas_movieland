@@ -1,8 +1,6 @@
-# Movieland 
+# Movieland
 
-React + Redux + RTK + Bootstrap application that fetches movies from [https://www.themoviedb.org/](https://www.themoviedb.org/)
-
-Created with [Create React App](https://github.com/facebook/create-react-app).
+React + Redux + RTK + Vite + TypeScript application that fetches movies from [https://www.themoviedb.org/](https://www.themoviedb.org/)
 
 ## Available Scripts
 
@@ -22,5 +20,9 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
+
+### `npm run coverage`
+
+Launches the test runner in the interactive watch mode and reports the test coverage in the cli.
+

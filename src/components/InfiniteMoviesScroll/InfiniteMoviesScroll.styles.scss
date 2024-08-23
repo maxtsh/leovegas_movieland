@@ -1,0 +1,31 @@
+.infinite-scroll {
+  &__trigger {
+    opacity: 0;
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--danger-700);
+    }
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: hsl(var(--text-primary));
+    }
+  }
+}
