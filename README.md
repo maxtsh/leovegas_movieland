@@ -10,7 +10,7 @@ In the project directory, you can run:
 
 Install all dependencies
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -25,4 +25,14 @@ Launches the test runner in the interactive watch mode.
 ### `npm run coverage`
 
 Launches the test runner in the interactive watch mode and reports the test coverage in the cli.
+
+### `npm run build-test`
+
+Build the project without typescript checks locally for testing purposes, you may use server package to run a production mode on your localhost.
+
+### `npm run build`
+
+Build the project validating typescript checks for production build.
+
+You can also use the docker and nginx.conf included in the project to dockerize or change it as you desire.
 
