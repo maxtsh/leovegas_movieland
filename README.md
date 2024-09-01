@@ -20,11 +20,25 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.
+Launches the unit and integration tests runner in the interactive watch mode.
 
 ### `npm run coverage`
 
-Launches the test runner in the interactive watch mode and reports the test coverage in the cli.
+Launches the integration and unit tests runner in the interactive watch mode and reports the test coverage in the cli.
+
+### `npm run e2e`
+
+### `npm run e2e-ui`
+
+### `npm run e2e-chrome`
+
+### `npm run e2e-firefox`
+
+### `npm run e2e-webkit`
+
+### `npm run e2e-report`
+
+Launches the E2E tests runner for all or specific browsers and with UI mode.
 
 ### `npm run build-test`
 
