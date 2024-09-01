@@ -36,7 +36,7 @@ function Home() {
         </div>
       )}
       {moviesList.status === "success" && (
-        <div data-testid="moives-list" className="movies-list">
+        <div data-testid="movies-list" className="movies-list">
           <MoviesGrid movies={moviesData} />
           <InfiniteMoviesScroll initialPage={1} />
         </div>

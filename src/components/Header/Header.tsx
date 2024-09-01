@@ -27,7 +27,7 @@ function Header() {
       <div className="header__info">
         <Link
           to="/"
-          data-testid="home"
+          aria-label="home page"
           onClick={() => handleGoHome(searchQuery)}>
           <FaFilm size={25} className="i" />
         </Link>
@@ -37,7 +37,7 @@ function Header() {
         <nav>
           <NavLink
             to="/starred"
-            data-testid="nav-starred"
+            aria-label="nav-starred"
             className="nav-starred">
             {starredItemsCount > 0 ? (
               <div className="starred_wrapper">
@@ -48,7 +48,10 @@ function Header() {
               <FaRegStar size={25} className="i" />
             )}
           </NavLink>
-          <NavLink to="/watch-later" className="nav-fav">
+          <NavLink
+            to="/watch-later"
+            aria-label="nav-watch-later"
+            className="nav-fav">
             Watch Later
           </NavLink>
         </nav>

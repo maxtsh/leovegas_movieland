@@ -69,7 +69,7 @@ test("Home page loading state", () => {
 test("Home page success state", async () => {
   renderWithProviders(<Home />);
 
-  const list = await screen.findByTestId("moives-list");
+  const list = await screen.findByTestId("movies-list");
 
   expect(list).toBeInTheDocument();
 });

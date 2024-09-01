@@ -3,3 +3,5 @@ dist
 build
 public
 coverage
+test-results
+playwright-report

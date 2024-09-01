@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   envPrefix: "LV",
   test: {
+    include: ["**/*.test.ts", "**/*.test.tsx"],
     alias: [
       { find: "@", replacement: new URL("./src/", import.meta.url).pathname },
     ],

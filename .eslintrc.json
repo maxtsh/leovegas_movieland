@@ -14,7 +14,6 @@
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react-hooks/recommended",
-    "plugin:testing-library/react",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
@@ -33,9 +32,16 @@
     "testing-library",
     "@typescript-eslint/eslint-plugin",
     "import",
-    "prettier"
+    "prettier",
+    "eslint-plugin-playwright"
   ],
   "settings": {
+    "react": {
+      "pragma": "React",
+      "fragment": "Fragment",
+      "version": "detect",
+      "defaultVersion": "18.2.0"
+    },
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
@@ -57,13 +63,18 @@
         "devDependencies": [
           "**/*.test.ts",
           "**/*.test.tsx",
+          "**/*.spec.ts",
+          "**/*.spec.tsx",
           "**/test/*",
+          "**/e2e/*",
+          "**/spec/*",
           "**/mocks/*",
           "**/__mocks__/*",
           "**/tests/*",
-          "./src/tests/*" ,         
+          "./src/tests/*",
           "vite.config.ts",
-          "vitest.config.ts"
+          "vitest.config.ts",
+          "playwright.config.ts"
         ]
       }
     ],
@@ -102,5 +113,19 @@
     "react/prop-types": 0,
     "linebreak-style": ["error", "windows"],
     "semi": ["error", "always"]
-  }
+  },
+  "overrides": [
+    // Override for Playwright tests
+    {
+      "files": ["./e2e/**/*.ts", "./e2e/**/*.tsx"],
+      "excludedFiles": ["**/*.test.ts", "**/*.test.tsx"],
+      "extends": "plugin:playwright/recommended"
+    },
+    // Override for Testing Library tests
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "excludedFiles": ["./e2e/**/*.ts", "./e2e/**/*.tsx"],
+      "extends": "plugin:testing-library/react"
+    }
+  ]
 }
