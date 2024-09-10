@@ -1,0 +1,11 @@
+.movies-grid {
+  display: grid;
+  gap: 2rem;
+  color: hsl(var(--text-primary));
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+
+  @media (max-width: 720px) {
+    padding-top: 1rem;
+  }
+}
+

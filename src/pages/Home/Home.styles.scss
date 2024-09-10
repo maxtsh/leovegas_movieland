@@ -1,0 +1,35 @@
+.home-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .movies-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .loading,
+  .error {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loading {
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: hsl(var(--text-primary));
+    }
+  }
+
+  .error {
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--danger-700);
+    }
+  }
+}

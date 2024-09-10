@@ -1,0 +1,58 @@
+.watchlater-movies {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  &__list {
+    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      color: hsl(var(--text-primary));
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__empty-cart {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-direction: column;
+
+    &__icon {
+      color: hsl(var(--text-primary));
+    }
+
+    &__description,
+    &__link {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: hsl(var(--text-primary));
+    }
+
+    &__description {
+      color: hsl(var(--text-primary));
+    }
+
+    &__back {
+      color: hsl(var(--text-primary));
+      font-weight: 600;
+      font-size: 1.5rem;
+
+      &__link {
+        text-decoration: none;
+        color: var(--primary-200);
+      }
+    }
+  }
+}
